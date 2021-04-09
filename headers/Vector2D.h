@@ -1,3 +1,6 @@
+#ifndef VECTOR2D_H
+#define VECTOR2D_H
+
 class Vector2D
 {
 	double x, y;
@@ -42,3 +45,5 @@ public:
 	friend Vector2D &operator >> (std::istream &out, Vector2D &B);
 
 };
+
+#endif

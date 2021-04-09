@@ -9,4 +9,6 @@
 #include <iostream>
 
 //Локальные
+#include "Vector2D.h"
 #endif //HEADER_H
+
