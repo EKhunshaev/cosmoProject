@@ -42,7 +42,7 @@ public:
 	friend bool operator<= (Vector2D &A, Vector2D &B);
 
 	friend std::ostream &operator << (std::ostream &out, Vector2D &B);
-	friend Vector2D &operator >> (std::istream &out, Vector2D &B);
+	friend Vector2D &operator >> (std::istream &in, Vector2D &B);
 
 };
 
