@@ -11,5 +11,6 @@
 //Локальные
 #include "Vector2D.h"
 #include "Ship.h"
+#include "Planet.h"
 #endif //HEADER_H
 

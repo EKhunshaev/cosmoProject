@@ -18,5 +18,7 @@ int main() {
     double x1 = S3.get_weight();
     V5 = S2.get_coord();
     std::cout <<x1 <<" " <<V5 <<"\n";
+    double x2 = S2.get_coord().get_x();
+    std::cout <<x2 <<"\n";
     return 0;
 }
