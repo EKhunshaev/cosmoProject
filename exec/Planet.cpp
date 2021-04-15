@@ -2,8 +2,8 @@
 
 Planet::Planet() {
     weight = rad = 0;
-    coord = Point(0, 0);
-    vel = Velocity(0, 0);
+    coord = Point();
+    vel = Velocity();
 }
 Planet::Planet(const double &weight , const Point &coord, const double &rad, const Velocity &vel) {
     this->coord = coord;
@@ -47,7 +47,7 @@ void changeVelocity(Planet &p1, Planet &p2) {
     //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
     double coeff = p1.weight * p2.weight /
             pow(mod(p1.coord - p2.coord) ,3);
-    Force f12 = Vector2D(coeff * (p2.coord.getX() - p1.coord.getX()),
+    Force f12 = Force(coeff * (p2.coord.getX() - p1.coord.getX()),
                             coeff * (p2.coord.getY() - p1.coord.getY()));
     p1.vel += f12 * (DT / p1.getWeight());
     p2.vel -= f12 * (DT / p2.getWeight());
