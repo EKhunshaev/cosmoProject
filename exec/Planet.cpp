@@ -1,62 +1,59 @@
 #include "../headers/header.h"
 
-double destSquare(const Point &p1, const Point &p2) {
-    return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
-}
-
 Planet::Planet() {
-    m = r = 0;
-    X = {0, 0};
-    V = {0, 0};
+    weight = rad = 0;
+    coord = Point(0, 0);
+    vel = Velocity(0, 0);
 }
-Planet::Planet(const double &m, const Point &X, const double &r, const Velocity &V) {
-    this->X = X;
-    this->r = r;
-    this->m = m;
-    this->V = V;
-}
-
-double Planet::getM() {
-    return m;
+Planet::Planet(const double &weight , const Point &coord, const double &rad, const Velocity &vel) {
+    this->coord = coord;
+    this->rad = rad;
+    this->weight = weight ;
+    this->vel = vel;
 }
 
-Point Planet::getX() {
-    return X;
+double Planet::getWeight() {
+    return weight;
 }
 
-double Planet::getR() {
-    return r;
-}
-Velocity Planet::getV() {
-    return V;
+Point Planet::getCoord() {
+    return coord;
 }
 
-void Planet::setM(const double &m) {
-    this->m = m;
+double Planet::getRad() {
+    return rad;
+}
+Velocity Planet::getVel() {
+    return vel;
 }
 
-void Planet::setX(const Point &X) {
-    this->X = X;
+void Planet::setWeight(const double &weight) {
+    this->weight = weight;
 }
 
-void Planet::setR(const double &r) {
-    this->r = r;
+void Planet::setCoord(const Point &coord) {
+    this->coord = coord;
 }
 
-void Planet::setV(const Velocity &V) {
-    this->V = V;
+void Planet::setRad(const double &rad) {
+    this->rad = rad;
+}
+
+void Planet::setVel(const Velocity &vel) {
+    this->vel = vel;
 }
 
 void changeVelocity(Planet &p1, Planet &p2) {
-    double coeff = 10 * p1.m * p2.m / pow(destSquare(p1.X, p2.X), 3/2);
-    Force F12 = {coeff * (p2.X.x - p1.X.x), coeff * (p2.X.y - p1.X.y)};
-    p1.V.Vx += F12.Fx * DT;
-    p1.V.Vy += F12.Fy * DT;
-    p2.V.Vx -= F12.Fx * DT;
-    p2.V.Vy -= F12.Fy * DT;
+    //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
+    double coeff = p1.weight * p2.weight /
+            pow(mod(p1.coord - p2.coord) ,3);
+    Force f12 = Vector2D(coeff * (p2.coord.getX() - p1.coord.getX()),
+                            coeff * (p2.coord.getY() - p1.coord.getY()));
+    p1.vel += f12 * (DT / p1.getWeight());
+    p2.vel -= f12 * (DT / p2.getWeight());
 }
 
 std::istream &operator>>(std::istream &in, Planet &p) {
-    in >> p.m >> p.r >> p.X.x >> p.X.y >> p.V.Vx >> p.V.Vy;
+    in >> p.weight >> p.rad >> p.coord >> p.vel;
     return in;
 }
