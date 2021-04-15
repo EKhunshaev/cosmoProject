@@ -115,12 +115,12 @@ bool operator<=(const Vector2D &A, const Vector2D &B) {
     return (mod(A) <= mod(B));
 }
 
-std::ostream &operator<< (std::ostream &out, const Vector2D &B) {
+std::ostream &operator<<(std::ostream &out, const Vector2D &B) {
     out << B.x << " " << B.y << "; ";
     return out;
 }
 
-Vector2D &operator>> (std::istream &in, Vector2D &B) {
+Vector2D &operator>>(std::istream &in, Vector2D &B) {
     in >> B.x >> B.y;
     return B;
 }
