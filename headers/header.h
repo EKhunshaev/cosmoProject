@@ -12,5 +12,6 @@
 #include "Vector2D.h"
 #include "Ship.h"
 #include "Planet.h"
+#include "Calc.h"
 #endif //HEADER_H
 

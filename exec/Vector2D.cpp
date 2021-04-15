@@ -18,8 +18,11 @@ Vector2D::Vector2D(double x, double y)
 	this->x = x;
 	this->y = y;
 }
-
-
+Vector2D::Vector2D(const Vector2D &that) 
+{
+    this->x = that.x;
+    this->y = that.y;
+}
 void Vector2D::set_x(double x)
 {
 	this->x = x;

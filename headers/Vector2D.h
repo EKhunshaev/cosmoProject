@@ -8,6 +8,7 @@ public:
 	Vector2D();
 	Vector2D(double x);
 	Vector2D(double x, double y);
+    Vector2D(const Vector2D &that);
 
 	double get_x();
 	double get_y();
@@ -30,7 +31,7 @@ public:
 	friend Vector2D operator++ (Vector2D &A, int x);
 	friend Vector2D operator-- (Vector2D &A, int x);
 	friend Vector2D operator++ (Vector2D &A);
-        friend Vector2D operator-- (Vector2D &A);
+    friend Vector2D operator-- (Vector2D &A);
 	friend Vector2D operator+ (Vector2D &A);
 	friend Vector2D operator- (Vector2D &A);
 

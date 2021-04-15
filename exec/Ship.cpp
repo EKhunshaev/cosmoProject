@@ -56,7 +56,6 @@ Vector2D Ship::get_accel()
     return accel;
 }
 
-
 std::ostream &operator << (std::ostream &out, Ship &S)
 {
     out <<S.weight <<"; " <<S.coord <<" " <<S.speed <<" " <<S.accel;
