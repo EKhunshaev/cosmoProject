@@ -59,6 +59,24 @@ Vector2D operator*(const Vector2D &A, const double &n) {
     return Vector2D(A.x * n, A.y * n);
 }
 
+Vector2D &operator+=(Vector2D &V1, const Vector2D &V2) {
+    V1.x += V2.x;
+    V1.y += V2.y;
+    return V1;
+}
+
+Vector2D &operator-=(Vector2D &V1, const Vector2D &V2) {
+    V1.x -= V2.x;
+    V1.y -= V2.y;
+    return V1;
+}
+
+Vector2D &operator*=(Vector2D &V, const double &N) {
+    V.x *= N;
+    V.y *= N;
+    return V;
+}
+
 Vector2D operator++(Vector2D &A, int x) {
     A.x += 1;
     A.y += 1;
@@ -120,8 +138,8 @@ std::ostream &operator<<(std::ostream &out, const Vector2D &B) {
     return out;
 }
 
-Vector2D &operator>>(std::istream &in, Vector2D &B) {
+std::istream &operator>>(std::istream &in, Vector2D &B) {
     in >> B.x >> B.y;
-    return B;
+    return in;
 }
 

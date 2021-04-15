@@ -24,6 +24,10 @@ public:
     friend Vector2D operator*(const Vector2D &A, const double &n);
     friend Vector2D operator*(const double &n, const Vector2D &A);
 
+    friend Vector2D &operator+=(Vector2D &V1, const Vector2D &V2);
+    friend Vector2D &operator-=(Vector2D &V1, const Vector2D &V2);
+    friend Vector2D &operator*=(Vector2D &V, const double &N);
+
     friend Vector2D operator++(Vector2D &A, int x);
     friend Vector2D operator--(Vector2D &A, int x);
     friend Vector2D operator++(Vector2D &A);
@@ -39,7 +43,7 @@ public:
     friend bool operator<=(const Vector2D &A, const Vector2D &B);
 
     friend std::ostream &operator<<(std::ostream &out, const Vector2D &B);
-    friend Vector2D &operator>>(std::istream &in, Vector2D &B);
+    friend std::istream &operator>>(std::istream &in, Vector2D &B);
 
 };
 
