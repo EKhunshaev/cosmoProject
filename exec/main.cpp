@@ -6,11 +6,11 @@ int main() {
     Planet p1;
     Planet p2;
     std::cin >> p1 >> p2;
-    sf::CircleShape planet1(p1.getR());
-    planet1.setPosition(p1.getX().x, p1.getX().y);
+    sf::CircleShape planet1(p1.getRad());
+    planet1.setPosition(p1.getCoord().getX(), p1.getCoord().getY());
 
-    sf::CircleShape planet2(p2.getR());
-    planet2.setPosition(p2.getX().x, p2.getX().y);
+    sf::CircleShape planet2(p2.getRad());
+    planet2.setPosition(p2.getCoord().getX(), p2.getCoord().getY());
 
     planet1.setFillColor(sf::Color::Cyan);
     planet2.setFillColor(sf::Color::Red);
@@ -31,15 +31,11 @@ int main() {
         window.draw(planet2);
         window.display();
         changeVelocity(p1, p2);
-        planet1.move(p1.getV().Vx * DT, p1.getV().Vy * DT);
-        p1.setX({p1.getX().x + p1.getV().Vx * DT, p1.getX().y + p1.getV().Vy * DT});
-        planet2.move(p2.getV().Vx * DT, p2.getV().Vy * DT);
-        p2.setX({p2.getX().x + p2.getV().Vx * DT, p2.getX().y + p2.getV().Vy * DT});
+        planet1.move(p1.getVel().getX() * DT, p1.getVel().getY() * DT);
+        p1.setCoord({p1.getCoord().getX() + p1.getVel().getX() * DT, p1.getCoord().getY() + p1.getVel().getY() * DT});
+        planet2.move(p2.getVel().getX() * DT, p2.getVel().getY() * DT);
+        p2.setCoord({p2.getCoord().getX() + p2.getVel().getX() * DT, p2.getCoord().getY() + p2.getVel().getY() * DT});
     }
 
     return 0;
 }
-
-
-100 50 100 350 0 100
-100 50 700 350 0 -100
