@@ -9,14 +9,11 @@ public:
     Vector2D(const double &x);
     Vector2D(const double &x, const double &y);
 
-    double get_x();
-    double get_y();
+    double getX();
+    double getY();
 
-    void set_x(const double &x);
-    void set_y(const double &y);
-
-    Vector2D *plus(Vector2D *A);
-    Vector2D *minus(Vector2D *A);
+    void setX(const double &x);
+    void setY(const double &y);
 
     double mod();
 
@@ -45,5 +42,11 @@ public:
     friend Vector2D &operator>>(std::istream &in, Vector2D &B);
 
 };
+
+//typedef for vector quantities in physics
+typedef Vector2D Point;
+typedef Vector2D Velocity;
+typedef Vector2D Accel;
+typedef Vector2D Force;
 
 #endif

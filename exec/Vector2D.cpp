@@ -15,28 +15,20 @@ Vector2D::Vector2D(const double &x, const double &y) {
     this->y = y;
 }
 
-double Vector2D::get_x() {
+double Vector2D::getX() {
     return x;
 }
 
-double Vector2D::get_y() {
+double Vector2D::getY() {
     return y;
 }
 
-void Vector2D::set_x(const double &x) {
+void Vector2D::setX(const double &x) {
     this->x = x;
 }
 
-void Vector2D::set_y(const double &y) {
+void Vector2D::setY(const double &y) {
     this->y = y;
-}
-
-Vector2D *Vector2D::plus(Vector2D *A) {
-    return new Vector2D(x + A->get_x(), y + A->get_y());
-}
-
-Vector2D *Vector2D::minus(Vector2D *A) {
-    return new Vector2D(x - A->get_x(), y - A->get_y());
 }
 
 double Vector2D::mod() {
