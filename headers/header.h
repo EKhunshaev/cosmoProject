@@ -10,8 +10,11 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 //Локальные
+#include "Vector2D.h"
 #include "Planet.h"
 
 //defines
 #define DT 0.0001
+
 #endif //HEADER_H
+
