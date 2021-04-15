@@ -88,6 +88,7 @@ Vector2D operator--(Vector2D &A, int x) {
     A.y -= 1;
     return A;
 }
+
 Vector2D operator++(Vector2D &A) {
     A.x += 1;
     A.y += 1;
@@ -99,6 +100,7 @@ Vector2D operator--(Vector2D &A) {
     A.y -= 1;
     return A;
 }
+
 Vector2D operator+(Vector2D &A) {
     return A;
 }
