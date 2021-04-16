@@ -1,14 +1,21 @@
 #include "../headers/header.h"
 
-Vector2D dist(Ship S, Planet P)
+double high(Ship &S, Planet &P)
 {
-    Vector2D D = P.get_coord() - S.get_coord();
+    double D = mod(P.getCoord() - S.getCoord()) - P.getRad();
     return (D);
 }
 
-Vector2D force(Ship S, Planet P)
-{
-    Vector2D D = dist(S, P);
-    double L = mod(D);
-    return( G * S.get_weight() * P.get_weight() / ( L * L * L) * D);
-}       
+Force forceP(Planet &p1, Planet &p2) {
+    //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
+    double coeff = p1.getWeight() * p2.getWeight() / pow(mod(p1.getCoord() - p2.getCoord()) ,3);
+    Force f12 = Force(coeff * (p2.getCoord().getX() - p1.getCoord().getX()), coeff * (p2.getCoord().getY() - p1.getCoord().getY()));
+    return(f12);
+}
+
+ void changeVelocity1(Planet &p1, Planet &p2) {
+    Force f12 = forceP(p1, p2);
+    p1.setVel(p1.getVel() + f12 * (DT / p1.getWeight()));
+    p2.setVel(p2.getVel() - f12 * (DT / p2.getWeight()));
+}
+     

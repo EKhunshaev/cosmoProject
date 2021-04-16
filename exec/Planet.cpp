@@ -45,6 +45,14 @@ void Planet::setVel(const Velocity &vel) {
     this->vel = vel;
 }
 
+sf::CircleShape draw(Planet &S) {
+    sf::CircleShape s1(S.getRad());
+    s1.setPosition(S.getCoord().getX(), S.getCoord().getY());
+    s1.setFillColor(sf::Color(128, 128, 128));
+    return s1;
+  }  
+
+
 void changeVelocity(Planet &p1, Planet &p2) {
     //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
     double coeff = p1.weight * p2.weight /
