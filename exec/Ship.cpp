@@ -1,75 +1,59 @@
-#include <iostream>
-#include <cmath>
 #include "../headers/header.h"
 
-
-Ship::Ship(double weight)
-{
-	this->weight = weight;
-	this->coord = 0;
-	this->speed = 0;
-	this->accel = 0;
-}
-Ship::Ship(double weight, Vector2D coord, Vector2D speed, Vector2D accel)
-{
-	this->weight = weight;
-	this->coord = coord;
-	this->speed = speed;
-	this->accel = accel;
+Ship::Ship() {
+    weight =  0;
+    coord = Point();
+    vel = Velocity();
 }
 
-
-void Ship::set_weight(double weight)
-{
-	this->weight = weight;
-}
-void Ship::set_coord(Vector2D coord)
-{       
+Ship::Ship(const double &weight, const Point &coord, const Velocity &vel) {
     this->coord = coord;
-}
-void Ship::set_speed(Vector2D speed)
-{       
-    this->speed = speed;
-}
-void Ship::set_accel(Vector2D accel)
-{       
-   this->accel = accel;
+    this->weight = weight ;
+    this->vel = vel;
 }
 
-
-double Ship::get_weight()
-{
+double Ship::getWeight() {
     return weight;
 }
-Vector2D Ship::get_coord()
-{
+
+Point Ship::getCoord() {
     return coord;
 }
 
-Vector2D Ship::get_speed()
-{
-    return speed;
+Velocity Ship::getVel() {
+    return vel;
 }
 
-Vector2D Ship::get_accel()
-{
-    return accel;
+void Ship::setWeight(const double &weight) {
+    this->weight = weight;
 }
 
-std::ostream &operator << (std::ostream &out, Ship &S)
-{
-    out <<S.weight <<"; " <<S.coord <<" " <<S.speed <<" " <<S.accel;
-	return out;
+void Ship::setCoord(const Point &coord) {
+    this->coord = coord;
 }
-Ship &operator >> (std::istream &in, Ship &S)
-{
-    double C1, C2, S1, S2, A1, A2;
-    in >>S.weight >>C1 >>C2 >>S1 >>S2 >>A1 >>A2;
-    Vector2D coord (C1, C2);
-    Vector2D speed (S1, S2);
-    Vector2D accel (A1, A2);
-    S.set_coord(coord);
-    S.set_speed(speed);
-    S.set_accel(accel);
-    return S;
+
+void Ship::setVel(const Velocity &vel) {
+    this->vel = vel;
 }
+
+sf::CircleShape draw(Ship &S) {
+    sf::CircleShape s1(30);
+    s1.setPosition(S.getCoord().getX(), S.getCoord().getY());
+    s1.setFillColor(sf::Color(128, 128, 128));
+    return s1;
+  }  
+
+void changeVelocity(Ship &p1, Planet &p2) {
+    //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
+    double coeff = p1.weight * p2.getWeight() /
+            pow(mod(p1.coord - p2.getCoord()) ,3);
+    Force f12 = Force(coeff * (p2.getCoord().getX() - p1.coord.getX()),
+                            coeff * (p2.getCoord().getY() - p1.coord.getY()));
+    p1.vel += f12 * (DT / p1.weight);
+}
+
+std::istream &operator>>(std::istream &in, Ship &s) {
+    in >> s.weight >> s.coord >> s.vel;
+    return in;
+}
+

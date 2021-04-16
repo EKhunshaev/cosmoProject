@@ -3,31 +3,29 @@
 
 #include "header.h"
 
-class Planet {
+class Planet
+{
 protected:
     double weight;
-    double radius;
-    Vector2D coord;
-    Vector2D speed;
-    Vector2D accel;
+    double rad;
+    Point coord;
+    Velocity vel;
 public:
-    Planet(double weight, double radius);
-    Planet(double weight, double radius, Vector2D coord, Vector2D speed, Vector2D accel); 
+    Planet();
+    Planet(const double &m, const Point &X, const double &r, const Velocity &V);
 
-    double get_weight();
-    double get_radius();
-    Vector2D get_coord();
-    Vector2D get_speed();
-    Vector2D get_accel();
+    double getWeight();
+    double getRad();
+    Point getCoord();
+    Velocity getVel();
 
-	void set_weight(double weight);
-    void set_radius(double radius);
-	void set_coord(Vector2D coord);
-	void set_speed(Vector2D speed);
-	void set_accel(Vector2D accel);
+    void setWeight(const double &m);
+    void setRad(const double &r);
+    void setCoord(const Point &X);
+    void setVel(const Velocity &V);
 
-	friend std::ostream &operator << (std::ostream &out, Planet &S);
-	friend Planet &operator >> (std::istream &in, Planet &S);
+    friend void changeVelocity(Planet &p1, Planet &p2);
+    friend std::istream &operator>>(std::istream &in, Planet &p);
 };
 
-#endif
+#endif //PLANET_H

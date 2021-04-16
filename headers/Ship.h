@@ -3,28 +3,28 @@
 
 #include "header.h"
 
-class Ship {
+class Ship
+{
 protected:
     double weight;
-    Vector2D coord;
-    Vector2D speed;
-    Vector2D accel;
+    Point coord;
+    Velocity vel;
 public:
-    Ship(double weight);
-    Ship(double weight, Vector2D coord, Vector2D speed, Vector2D accel); 
+    Ship();
+    Ship(const double &m, const Point &X, const Velocity &V);
 
-    double get_weight();
-    Vector2D get_coord();
-    Vector2D get_speed();
-    Vector2D get_accel();
+    double getWeight();
+    Point getCoord();
+    Velocity getVel();
 
-	void set_weight(double weight);
-	void set_coord(Vector2D coord);
-	void set_speed(Vector2D speed);
-	void set_accel(Vector2D accel);
-
-	friend std::ostream &operator << (std::ostream &out, Ship &S);
-	friend Ship &operator >> (std::istream &in, Ship &S);
+    void setWeight(const double &m);
+    void setCoord(const Point &X);
+    void setVel(const Velocity &V);
+    
+    friend sf::CircleShape draw(Ship &S);
+    friend void changeVelocity(Ship &p1, Planet &p2);
+    friend std::istream &operator>>(std::istream &in, Ship &p);
 };
 
-#endif
+#endif //SHIP_H
+

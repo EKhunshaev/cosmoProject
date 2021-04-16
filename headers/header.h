@@ -7,11 +7,15 @@
 #define HEADER_H
 //Системные
 #include <iostream>
-
+#include <SFML/Graphics.hpp>
+#include <cmath>
 //Локальные
 #include "Vector2D.h"
-#include "Ship.h"
 #include "Planet.h"
-#include "Calc.h"
+#include "Ship.h"
+
+//defines
+#define DT 0.0001
+
 #endif //HEADER_H
 

@@ -5,3 +5,10 @@
 ## Код разделен на 2 директории
 В headers - содержаться заголовочные файлы классов, функций и т.д
 exec - содержит исполняемые файлы
+
+## Компилирование sfml проектов
+Компиляция происходит с флагом -c
+g++ -c main.cpp -o main.o
+Далее скомпилированный файл надо связать с sfml. SFML содержит 5 модулей graphics window system audio network
+Компилировать с флагом -lsfml-xxx где xxx - требуемый модуль
+g++ main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system

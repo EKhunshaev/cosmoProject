@@ -1,87 +1,61 @@
-#include <iostream>
-#include <cmath>
 #include "../headers/header.h"
 
-
-Planet::Planet(double weight, double radius)
-{
-	this->weight = weight;
-    this->radius = radius;
-	this->coord = 0;
-	this->speed = 0;
-	this->accel = 0;
-}
-Planet::Planet(double weight, double radius, Vector2D coord, Vector2D speed, Vector2D accel)
-{
-	this->weight = weight;
-    this->radius = radius;
-	this->coord = coord;
-	this->speed = speed;
-	this->accel = accel;
+Planet::Planet() {
+    weight = rad = 0;
+    coord = Point();
+    vel = Velocity();
 }
 
-
-void Planet::set_weight(double weight)
-{
-	this->weight = weight;
-}
-void Planet::set_radius(double radius)
-{
-	this->radius = radius;
-}
-void Planet::set_coord(Vector2D coord)
-{       
+Planet::Planet(const double &weight , const Point &coord, const double &rad, const Velocity &vel) {
     this->coord = coord;
-}
-void Planet::set_speed(Vector2D speed)
-{       
-    this->speed = speed;
-}
-void Planet::set_accel(Vector2D accel)
-{       
-   this->accel = accel;
+    this->rad = rad;
+    this->weight = weight ;
+    this->vel = vel;
 }
 
-
-double Planet::get_weight()
-{
+double Planet::getWeight() {
     return weight;
 }
-double Planet::get_radius()
-{
-    return radius;
-}
-Vector2D Planet::get_coord()
-{
+
+Point Planet::getCoord() {
     return coord;
 }
 
-Vector2D Planet::get_speed()
-{
-    return speed;
+double Planet::getRad() {
+    return rad;
 }
 
-Vector2D Planet::get_accel()
-{
-    return accel;
+Velocity Planet::getVel() {
+    return vel;
 }
 
-
-std::ostream &operator << (std::ostream &out, Planet &S)
-{
-    out <<S.weight <<"; " <<S.radius <<"; " <<S.coord <<" " <<S.speed <<" " <<S.accel;
-	return out;
-}
-Planet &operator >> (std::istream &in, Planet &S)
-{
-    double C1, C2, S1, S2, A1, A2;
-    in >>S.weight >>S.radius >>C1 >>C2 >>S1 >>S2 >>A1 >>A2;
-    Vector2D coord (C1, C2);
-    Vector2D speed (S1, S2);
-    Vector2D accel (A1, A2);
-    S.set_coord(coord);
-    S.set_speed(speed);
-    S.set_accel(accel);
-    return S;
+void Planet::setWeight(const double &weight) {
+    this->weight = weight;
 }
 
+void Planet::setCoord(const Point &coord) {
+    this->coord = coord;
+}
+
+void Planet::setRad(const double &rad) {
+    this->rad = rad;
+}
+
+void Planet::setVel(const Velocity &vel) {
+    this->vel = vel;
+}
+
+void changeVelocity(Planet &p1, Planet &p2) {
+    //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
+    double coeff = p1.weight * p2.weight /
+            pow(mod(p1.coord - p2.coord) ,3);
+    Force f12 = Force(coeff * (p2.coord.getX() - p1.coord.getX()),
+                            coeff * (p2.coord.getY() - p1.coord.getY()));
+    p1.vel += f12 * (DT / p1.weight);
+    p2.vel -= f12 * (DT / p2.weight);
+}
+
+std::istream &operator>>(std::istream &in, Planet &p) {
+    in >> p.weight >> p.rad >> p.coord >> p.vel;
+    return in;
+}
