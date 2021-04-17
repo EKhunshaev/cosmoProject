@@ -13,9 +13,10 @@
 #include "Vector2D.h"
 #include "Planet.h"
 #include "Ship.h"
+#include "Calc.h"
 
 //defines
-#define DT 0.0001
+#define DT 0.01
 
 #endif //HEADER_H
 

@@ -15,14 +15,14 @@ public:
 
     double getWeight();
     Point getCoord();
-    Velocity getVel();
+    Velocity getVel(); 
+    sf::CircleShape getShape();
 
+    
     void setWeight(const double &m);
     void setCoord(const Point &X);
     void setVel(const Velocity &V);
     
-    friend sf::CircleShape draw(Ship &S);
-    friend void changeVelocity(Ship &p1, Planet &p2);
     friend std::istream &operator>>(std::istream &in, Ship &p);
 };
 

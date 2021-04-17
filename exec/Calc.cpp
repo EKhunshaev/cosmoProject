@@ -13,7 +13,7 @@ Force forceP(Planet &p1, Planet &p2) {
     return(f12);
 }
 
- void changeVelocity1(Planet &p1, Planet &p2) {
+ void changeVelocity(Planet &p1, Planet &p2) {
     Force f12 = forceP(p1, p2);
     p1.setVel(p1.getVel() + f12 * (DT / p1.getWeight()));
     p2.setVel(p2.getVel() - f12 * (DT / p2.getWeight()));
