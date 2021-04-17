@@ -7,17 +7,18 @@ int main() {
         sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
         int pCount = 0;
         file >> pCount;
-        Planet p1;
-        Planet p2;
-        file >> p1 >> p2;
-        sf::CircleShape planet1(p1.getRad());
-        planet1.setPosition(p1.getCoord().getX(), p1.getCoord().getY());
+        std::vector<Planet> planets(pCount);
+        std::vector<sf::CircleShape> planetPics(pCount);
+        for (int i = 0; i < pCount; ++i) {
+            //Читаю из файла
+            file >> planets[i];
 
-        sf::CircleShape planet2(p2.getRad());
-        planet2.setPosition(p2.getCoord().getX(), p2.getCoord().getY());
+            planetPics[i].setRadius(planets[i].getRad());
+            planetPics[i].setFillColor(sf::Color(200, 50, 50));
+            planetPics[i].setPosition(planets[i].getCoord().getX(), planets[i].getCoord().getY());
+            planetPics[i].setOrigin(planets[i].getRad(), planets[i].getRad());
+        }
 
-        planet1.setFillColor(sf::Color::Cyan);
-        planet2.setFillColor(sf::Color::Red);
 
         //Главный цикл приложения который выпоняется пока открыто окно
         while (window.isOpen()) {
@@ -27,18 +28,27 @@ int main() {
                     window.close();
             }
 
-
+            //Отрисовка окна
             window.clear(sf::Color(0x0e, 0x0e, 0x57));
-            window.draw(planet1);
-            window.draw(planet2);
+
+            for (int i = 0; i < pCount; ++i) {
+                window.draw(planetPics[i]);
+            }
+
             window.display();
-            changeVelocity(p1, p2);
-            planet1.move(p1.getVel().getX() * DT, p1.getVel().getY() * DT);
-            p1.setCoord(
-                    {p1.getCoord().getX() + p1.getVel().getX() * DT, p1.getCoord().getY() + p1.getVel().getY() * DT});
-            planet2.move(p2.getVel().getX() * DT, p2.getVel().getY() * DT);
-            p2.setCoord(
-                    {p2.getCoord().getX() + p2.getVel().getX() * DT, p2.getCoord().getY() + p2.getVel().getY() * DT});
+
+            //Измеение положений тел
+            for (int i = 0; i < pCount; ++i) {
+                for (int j = i + 1; j < pCount; ++j) {
+                    changeVelocity(planets[i], planets[j]);
+                }
+            }
+
+            for (int i = 0; i < pCount; ++i) {
+                planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
+                                     planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
+                planetPics[i].move(planets[i].getVel().getX() * DT, planets[i].getVel().getY() * DT);
+            }
         }
     }
     return 0;

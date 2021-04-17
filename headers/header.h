@@ -10,6 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <fstream>
+#include <vector>
 //Локальные
 #include "Vector2D.h"
 #include "Planet.h"
