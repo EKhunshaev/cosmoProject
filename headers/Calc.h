@@ -3,13 +3,13 @@
 
 #include "header.h"
 
-const double G = 6.67e-11;
+double high(Ship &s, Planet &p);
 
-double high(Ship &S, Planet &P);
+Force force(Planet &p1, Planet &p2);
+Force force(Planet &p1, Ship &s1);
 
-Force forceP(Planet &P1, Planet &P2);
-void changeVelocity(Planet &P1, Planet &P2);
-
-
+void changeVelocity(Planet &p1, Planet &p2);
+void changeVelocity(Planet &p1, Ship &s1);
+void changeVelocity(Force &f, Ship &s);
 
 #endif

@@ -24,7 +24,7 @@ Velocity Ship::getVel() {
     return vel;
 }
 sf::CircleShape Ship::getShape() { 
-    sf::CircleShape s(30);
+    sf::CircleShape s(10);
     s.setPosition(coord.getX(), coord.getY());
     s.setFillColor(sf::Color(128, 128, 128));
     return s;
