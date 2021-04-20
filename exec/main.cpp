@@ -28,8 +28,7 @@ int main() {
                 if (event.type == sf::Event::Closed) {
                     window.close();
                 } else if (event.type == sf::Event::MouseWheelScrolled) {
-                    sf::Vector2f viewMove = {windowView.getSize().x / 800 * sf::Mouse::getPosition(window).x - windowView.getSize().x / 2,
-                                         windowView.getSize().y / 800 * sf::Mouse::getPosition(window).y - windowView.getSize().y / 2};
+                    sf::Vector2f viewMove = window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView) - windowView.getCenter();
                     viewMove.x *= 0.05 * event.mouseWheelScroll.delta;
                     viewMove.y *= 0.05 * event.mouseWheelScroll.delta;
                     windowView.zoom(event.mouseWheelScroll.delta > 0 ? 0.95 : 1 / 0.95);
