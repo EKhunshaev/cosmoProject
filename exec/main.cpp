@@ -20,7 +20,8 @@ int main() {
             planetPics[i].setOrigin(planets[i].getRad(), planets[i].getRad());
         }
 
-
+        bool isViewMove = false;
+        sf::Vector2f mousePos;
         //Главный цикл приложения который выпоняется пока открыто окно
         while (window.isOpen()) {
             sf::Event event;
@@ -33,10 +34,23 @@ int main() {
                     viewMove.y *= 0.05 * event.mouseWheelScroll.delta;
                     windowView.zoom(event.mouseWheelScroll.delta > 0 ? 0.95 : 1 / 0.95);
                     windowView.move(viewMove);
-                    window.setView(windowView);
+                } else if (event.type == sf::Event::MouseButtonPressed) {
+                    if (event.mouseButton.button == sf::Mouse::Left && !isViewMove) {
+                        mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView);
+                        isViewMove = true;
+                    }
+                } else if (event.type == sf::Event::MouseButtonReleased) {
+                    if (event.mouseButton.button == sf::Mouse::Left) {
+                        isViewMove = false;
+                    }
+
                 }
             }
 
+            if (isViewMove) {
+                windowView.move(mousePos - window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView));
+                mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView);
+            }
             //Отрисовка окна
             window.clear(sf::Color(0x0e, 0x0e, 0x57));
 
@@ -44,6 +58,7 @@ int main() {
                 window.draw(planetPics[i]);
             }
 
+            window.setView(windowView);
             window.display();
 
             //Измеение положений тел
