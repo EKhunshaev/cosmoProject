@@ -5,6 +5,7 @@ int main() {
     if (file.is_open()) {
         //window - объект главного окна приложения типа RenderWindow
         sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
+        sf::View windowView = window.getView();
         int pCount = 0;
         file >> pCount;
         std::vector<Planet> planets(pCount);
@@ -24,8 +25,12 @@ int main() {
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed)
+                if (event.type == sf::Event::Closed) {
                     window.close();
+                } else if (event.type == sf::Event::MouseWheelScrolled) {
+                    windowView.zoom(event.mouseWheelScroll.delta > 0 ? 0.95 : 1.05);
+                    window.setView(windowView);
+                }
             }
 
             //Отрисовка окна
