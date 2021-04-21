@@ -9,6 +9,7 @@ protected:
     double weight;
     Point coord;
     Velocity vel;
+    sf::CircleShape ship;
 public:
     Ship();
     Ship(const double &m, const Point &X, const Velocity &V);
@@ -17,7 +18,6 @@ public:
     Point getCoord();
     Velocity getVel(); 
     sf::CircleShape getShape();
-
     
     void setWeight(const double &m);
     void setCoord(const Point &X);

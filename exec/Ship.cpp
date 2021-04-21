@@ -4,12 +4,19 @@ Ship::Ship() {
     weight =  0;
     coord = Point();
     vel = Velocity();
+    ship.setFillColor(sf::Color::Green);
+    ship.setPointCount(3);
 }
 
 Ship::Ship(const double &weight, const Point &coord, const Velocity &vel) {
     this->coord = coord;
     this->weight = weight ;
     this->vel = vel;
+    ship.setPosition(coord.getX(), coord.getY());
+    ship.setFillColor(sf::Color::Green);
+    ship.setPointCount(3);
+    ship.setRadius(5);
+    ship.setOrigin(5, 5);
 }
 
 double Ship::getWeight() {
@@ -23,11 +30,9 @@ Point Ship::getCoord() {
 Velocity Ship::getVel() {
     return vel;
 }
+
 sf::CircleShape Ship::getShape() { 
-    sf::CircleShape s(10);
-    s.setPosition(coord.getX(), coord.getY());
-    s.setFillColor(sf::Color(128, 128, 128));
-    return s;
+    return ship;
 }
 
 void Ship::setWeight(const double &weight) {
@@ -36,6 +41,7 @@ void Ship::setWeight(const double &weight) {
 
 void Ship::setCoord(const Point &coord) {
     this->coord = coord;
+    ship.setPosition(coord.getX(), coord.getY());
 }
 
 void Ship::setVel(const Velocity &vel) {
@@ -44,6 +50,11 @@ void Ship::setVel(const Velocity &vel) {
 
 std::istream &operator>>(std::istream &in, Ship &s) {
     in >> s.weight >> s.coord >> s.vel;
+    ship.setPosition(coord.getX(), coord.getY());
+    ship.setFillColor(sf::Color::Green);
+    ship.setPointCount(3);
+    ship.setRadius(5);
+    ship.setOrigin(5, 5);
     return in;
 }
 
