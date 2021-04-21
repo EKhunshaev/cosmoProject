@@ -46,23 +46,23 @@ int main() {
 
 //управление кораблём
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { 
-            V4.setX(S.getVel().getX() - 0.01);
+            V4.setX(S.getVel().getX() - 0.1);
             V4.setY(S.getVel().getY());
             S.setVel(V4);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { 
-            V4.setX(S.getVel().getX() + 0.01);
+            V4.setX(S.getVel().getX() + 0.1);
             V4.setY(S.getVel().getY());
             S.setVel(V4);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { 
             V4.setX(S.getVel().getX());
-            V4.setY(S.getVel().getY() - 0.01);
+            V4.setY(S.getVel().getY() - 0.1);
             S.setVel(V4);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { 
             V4.setX(S.getVel().getX());
-            V4.setY(S.getVel().getY() + 0.01);
+            V4.setY(S.getVel().getY() + 0.1);
             S.setVel(V4);
         }
 

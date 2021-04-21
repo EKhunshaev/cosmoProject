@@ -28,12 +28,6 @@ double Planet::getRad() {
 Velocity Planet::getVel() {
     return vel;
 }
-sf::CircleShape Planet::getShape() { 
-    sf::CircleShape p(rad);
-    p.setPosition(coord.getX(), coord.getY());
-    p.setFillColor(sf::Color(128, 128, 128));
-    return p;
-}
 
 void Planet::setWeight(const double &weight) {
     this->weight = weight;
@@ -50,6 +44,20 @@ void Planet::setRad(const double &rad) {
 void Planet::setVel(const Velocity &vel) {
     this->vel = vel;
 }
+
+Force force(Planet &p1, Planet &p2) {
+    //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
+    double coeff = p1.getWeight() * p2.getWeight() / pow(mod(p1.getCoord() - p2.getCoord()) ,3);
+    Force f12 = 10 * Force(coeff * (p2.getCoord().getX() - p1.getCoord().getX()), coeff * (p2.getCoord().getY() - p1.getCoord().getY()));
+    return(f12);
+}
+
+void changeVelocity(Planet &p1, Planet &p2) {
+    Force f12 = force(p1, p2);
+    p1.setVel(p1.getVel() + f12 * (DT / p1.getWeight()));
+    p2.setVel(p2.getVel() - f12 * (DT / p2.getWeight()));
+}     
+
 
 std::istream &operator>>(std::istream &in, Planet &p) {
     in >> p.weight >> p.rad >> p.coord >> p.vel;

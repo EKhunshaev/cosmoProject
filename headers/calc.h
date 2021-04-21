@@ -5,10 +5,8 @@
 
 double high(Ship &s, Planet &p);
 
-Force force(Planet &p1, Planet &p2);
 Force force(Planet &p1, Ship &s1);
 
-void changeVelocity(Planet &p1, Planet &p2);
 void changeVelocity(Planet &p1, Ship &s1);
 void changeVelocity(Force &f, Ship &s);
 

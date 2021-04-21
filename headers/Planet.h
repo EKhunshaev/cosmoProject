@@ -18,13 +18,15 @@ public:
     double getRad();
     Point getCoord();
     Velocity getVel();
-    sf::CircleShape getShape();
 
     void setWeight(const double &m);
     void setRad(const double &r);
     void setCoord(const Point &X);
     void setVel(const Velocity &V);
- 
+
+    friend Force force(Planet &p1, Planet &p2);
+    friend void changeVelocity(Planet &p1, Planet &p2);
+
     friend std::istream &operator>>(std::istream &in, Planet &p);
 };
 

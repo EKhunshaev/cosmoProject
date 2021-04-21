@@ -13,7 +13,7 @@
 #include "Vector2D.h"
 #include "Planet.h"
 #include "Ship.h"
-#include "Calc.h"
+#include "calc.h"
 
 //defines
 #define DT 0.01
