@@ -61,7 +61,7 @@ int main() {
                     changeVelocity(planets[i], planets[j]);
                 }
             }
-  //          std::cout << "Значение n равно" << planets[1].circle.getRadius();
+
             for (int i = 0; i < pCount; ++i) {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
