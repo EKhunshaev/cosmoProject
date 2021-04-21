@@ -8,12 +8,16 @@ int main() {
         sf::View windowView = window.getView();
         int pCount = 0;
         file >> pCount;
+
         std::vector<Planet> planets(pCount);
+        Ship ship;
+        Velocity shipV;
+
         for (int i = 0; i < pCount; ++i) {
             //Читаю из файла
             file >> planets[i];
         }
-
+        file >> ship;
         bool isViewMove = false;
         sf::Vector2f mousePos;
         //Главный цикл приложения который выпоняется пока открыто окно
@@ -37,9 +41,30 @@ int main() {
                     if (event.mouseButton.button == sf::Mouse::Left) {
                         isViewMove = false;
                     }
-
                 }
             }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                shipV.setX(ship.getVel().getX() - 0.1);
+                shipV.setY(ship.getVel().getY());
+                ship.setVel(shipV);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                shipV.setX(ship.getVel().getX() + 0.1);
+                shipV.setY(ship.getVel().getY());
+                ship.setVel(shipV);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                shipV.setX(ship.getVel().getX());
+                shipV.setY(ship.getVel().getY() - 0.1);
+                ship.setVel(shipV);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                shipV.setX(ship.getVel().getX());
+                shipV.setY(ship.getVel().getY() + 0.1);
+                ship.setVel(shipV);
+            }
+
 
             if (isViewMove) {
                 windowView.move(mousePos - window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView));
@@ -51,6 +76,7 @@ int main() {
             for (int i = 0; i < pCount; ++i) {
                 window.draw(planets[i].getCircle());
             }
+            window.draw(ship.getShape());
 
             window.setView(windowView);
             window.display();
@@ -59,13 +85,14 @@ int main() {
             for (int i = 0; i < pCount; ++i) {
                 for (int j = i + 1; j < pCount; ++j) {
                     changeVelocity(planets[i], planets[j]);
+                    changeVelocity(planets[i], ship);
                 }
             }
 
+            ship.setCoord({ship.getCoord().getX() + ship.getVel().getX() * DT, ship.getCoord().getY() + ship.getVel().getY() * DT});
             for (int i = 0; i < pCount; ++i) {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
-                planets[i].getCircle().move(planets[i].getVel().getX() * DT, planets[i].getVel().getY() * DT);
             }
         }
     }
