@@ -10,6 +10,7 @@ protected:
     double rad;
     Point coord;
     Velocity vel;
+    sf::CircleShape circle;
 public:
     Planet();
     Planet(const double &m, const Point &X, const double &r, const Velocity &V);
@@ -18,10 +19,12 @@ public:
     double getRad();
     Point getCoord();
     Velocity getVel();
+    sf::CircleShape getCircle();
 
     void setWeight(const double &m);
     void setRad(const double &r);
     void setCoord(const Point &X);
+    void setColor(const sf::Color &c);
     void setVel(const Velocity &V);
 
     friend void changeVelocity(Planet &p1, Planet &p2);
