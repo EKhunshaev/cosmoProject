@@ -9,7 +9,7 @@ double high(Ship &S, Planet &P)
 Force force(Planet &p1, Ship &s1) {
     //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
     double coeff = p1.getWeight() * s1.getWeight() / pow(mod(p1.getCoord() - s1.getCoord()) ,3);
-    Force f12 = 100 * Force(coeff * (s1.getCoord().getX() - p1.getCoord().getX()), coeff * (s1.getCoord().getY() - p1.getCoord().getY()));
+    Force f12 = Force(coeff * (s1.getCoord().getX() - p1.getCoord().getX()), coeff * (s1.getCoord().getY() - p1.getCoord().getY()));
     return(f12);
 }
 

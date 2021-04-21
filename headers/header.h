@@ -9,6 +9,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <fstream>
+#include <vector>
 //Локальные
 #include "Vector2D.h"
 #include "Planet.h"
@@ -16,7 +18,7 @@
 #include "calc.h"
 
 //defines
-#define DT 0.01
+#define DT 0.001
 
 #endif //HEADER_H
 
