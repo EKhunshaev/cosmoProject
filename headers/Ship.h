@@ -3,25 +3,28 @@
 
 #include "header.h"
 
-class Ship {
+class Ship
+{
 protected:
     double weight;
-    Vector2D coord;
-    Vector2D speed;
-    Vector2D accel;
+    Point coord;
+    Velocity vel;
+    sf::CircleShape ship;
 public:
-    Ship(double weight, Vector2D coord, Vector2D speed, Vector2D accel) 
-    double get_weight()
-    Vector2D get_weight()
-    Vector2D get_coord()
-    Vector2D get_speed()
-    Vector2D get_accel()
+    Ship();
+    Ship(const double &m, const Point &X, const Velocity &V);
 
-
-	void set_weight(double x);
-	void set_coord(Vector2D coord);
-	void set_speed(Vector2D speed);
-	void set_accel(Vector2D accel);
+    double getWeight();
+    Point getCoord();
+    Velocity getVel(); 
+    sf::CircleShape getShape();
+    
+    void setWeight(const double &m);
+    void setCoord(const Point &X);
+    void setVel(const Velocity &V);
+    
+    friend std::istream &operator>>(std::istream &in, Ship &p);
 };
 
-#endif
+#endif //SHIP_H
+

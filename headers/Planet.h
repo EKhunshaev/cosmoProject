@@ -27,7 +27,9 @@ public:
     void setColor(const sf::Color &c);
     void setVel(const Velocity &V);
 
+    friend Force force(Planet &p1, Planet &p2);
     friend void changeVelocity(Planet &p1, Planet &p2);
+
     friend std::istream &operator>>(std::istream &in, Planet &p);
 };
 

@@ -61,15 +61,19 @@ void Planet::setColor(const sf::Color &color) {
     this->circle.setFillColor(color);
 }
 
-void changeVelocity(Planet &p1, Planet &p2) {
+Force force(Planet &p1, Planet &p2) {
     //Gravitational Force = Y m1 * m2 / r^3 * vect(r)
-    double coeff = p1.weight * p2.weight /
-            pow(mod(p1.coord - p2.coord) ,3);
-    Force f12 = Force(coeff * (p2.coord.getX() - p1.coord.getX()),
-                            coeff * (p2.coord.getY() - p1.coord.getY()));
-    p1.vel += f12 * (DT / p1.weight);
-    p2.vel -= f12 * (DT / p2.weight);
+    double coeff = p1.getWeight() * p2.getWeight() / pow(mod(p1.getCoord() - p2.getCoord()) ,3);
+    Force f12 = Force(coeff * (p2.getCoord().getX() - p1.getCoord().getX()), coeff * (p2.getCoord().getY() - p1.getCoord().getY()));
+    return(f12);
 }
+
+void changeVelocity(Planet &p1, Planet &p2) {
+    Force f12 = force(p1, p2);
+    p1.setVel(p1.getVel() + f12 * (DT / p1.getWeight()));
+    p2.setVel(p2.getVel() - f12 * (DT / p2.getWeight()));
+}     
+
 
 std::istream &operator>>(std::istream &in, Planet &p) {
     in >> p.weight >> p.rad >> p.coord >> p.vel;
