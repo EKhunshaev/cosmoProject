@@ -9,15 +9,9 @@ int main() {
         int pCount = 0;
         file >> pCount;
         std::vector<Planet> planets(pCount);
-        std::vector<sf::CircleShape> planetPics(pCount);
         for (int i = 0; i < pCount; ++i) {
             //Читаю из файла
             file >> planets[i];
-
-            planetPics[i].setRadius(planets[i].getRad());
-            planetPics[i].setFillColor(sf::Color(200, 50, 50));
-            planetPics[i].setPosition(planets[i].getCoord().getX(), planets[i].getCoord().getY());
-            planetPics[i].setOrigin(planets[i].getRad(), planets[i].getRad());
         }
 
         bool isViewMove = false;
@@ -55,7 +49,7 @@ int main() {
             window.clear(sf::Color(0x0e, 0x0e, 0x57));
 
             for (int i = 0; i < pCount; ++i) {
-                window.draw(planetPics[i]);
+                window.draw(planets[i].getCircle());
             }
 
             window.setView(windowView);
@@ -67,11 +61,11 @@ int main() {
                     changeVelocity(planets[i], planets[j]);
                 }
             }
-
+  //          std::cout << "Значение n равно" << planets[1].circle.getRadius();
             for (int i = 0; i < pCount; ++i) {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
-                planetPics[i].move(planets[i].getVel().getX() * DT, planets[i].getVel().getY() * DT);
+                planets[i].getCircle().move(planets[i].getVel().getX() * DT, planets[i].getVel().getY() * DT);
             }
         }
     }
