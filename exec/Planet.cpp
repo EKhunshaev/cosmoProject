@@ -4,6 +4,12 @@ Planet::Planet() {
     weight = rad = 0;
     coord = Point();
     vel = Velocity();
+
+//    sf::circleShape shape(rad);
+//    sf::Texture texture;
+//    texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/Sun.png");
+//    this->circle.setTexture(&texture, false);
+//    this->circle.setTextureRect(sf::IntRect(50, 50, 100, 100));    
     circle.setFillColor(sf::Color(200, 50, 50));
 }
 
@@ -13,7 +19,12 @@ Planet::Planet(const double &weight , const Point &coord, const double &rad, con
     this->weight = weight ;
     this->vel = vel;
     this->circle.setRadius(rad);
-    this->circle.setFillColor(sf::Color(200, 50, 50));
+//    sf::circleShape shape(rad);
+//    sf::Texture texture;
+//    texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/Sun.png");
+//    this->shape.setTexture(&texture, true);
+//    this->shape.setTextureRect(sf::IntRect(50, 50, 100, 100));    
+    this->circle.setFillColor(sf::Color(200, 50, 50));//200 50 50
     this->circle.setPosition(this->coord.getX(), this->coord.getY());
     this->circle.setOrigin(rad, rad);
 }

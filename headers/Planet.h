@@ -11,6 +11,7 @@ protected:
     Point coord;
     Velocity vel;
     sf::CircleShape circle;
+
 public:
     Planet();
     Planet(const double &m, const Point &X, const double &r, const Velocity &V);

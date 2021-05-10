@@ -73,9 +73,33 @@ int main() {
             //Отрисовка окна
             window.clear(sf::Color(0x0e, 0x0e, 0x57));
 
-            for (int i = 0; i < pCount; ++i) {
-                window.draw(planets[i].getCircle());
-            }
+            //отрисовка текстуры
+//            sf::Texture texture;
+//            texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/Sun.png");
+//            sf::Sprite sprite(texture);
+//            sprite.setPosition(ship.getCoord().getX(), ship.getCoord().getY());
+//            window.draw(sprite);
+
+            sf::CircleShape shape(planets[0].getRad());
+            sf::Texture texture;
+            texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/Sun(1).png");
+            shape.setTexture(&texture, false);
+            shape.setTextureRect(sf::IntRect(1280, 720, 720, 720));    
+            shape.setPosition(planets[0].getCoord().getX() - planets[0].getRad(), planets[0].getCoord().getY() - planets[0].getRad());
+            window.draw(shape);
+
+            sf::CircleShape shape1(planets[1].getRad());
+            sf::Texture texture1;
+            texture1.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/Sun.png");
+            shape1.setTexture(&texture1, false);
+            shape1.setTextureRect(sf::IntRect(50, 50, 100, 100));    
+            shape1.setPosition(planets[1].getCoord().getX() - planets[1].getRad(), planets[1].getCoord().getY() - planets[1].getRad());
+            window.draw(shape1);
+            //end of it
+
+//            for (int i = 0; i < pCount; ++i) {
+//                window.draw(planets[i].getCircle());
+//            }
             window.draw(ship.getShape());
 
             window.setView(windowView);
