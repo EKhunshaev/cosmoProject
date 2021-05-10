@@ -2,6 +2,7 @@
 
 int main() {
     std::ifstream file("systems/twoPlanetSystem.txt");
+    int viewFlag = 0;
     if (file.is_open()) {
         //window - объект главного окна приложения типа RenderWindow
         sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
@@ -42,8 +43,31 @@ int main() {
                         isViewMove = false;
                     }
                 }
+ 
+                 else if (event.type == sf::Event::KeyReleased && viewFlag == 0) {
+                    if (event.key.code == sf::Keyboard::S) {
+                        sf::Vector2f viewMove = window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView) - windowView.getCenter();
+                        viewMove.x = ship.getCoord().getX();
+                        viewMove.y = ship.getCoord().getY(); 
+                        windowView.setCenter(ship.getCoord().getX(), ship.getCoord().getY());
+                        viewFlag = 1;
+                    }
+                } 
+                 else if (event.type == sf::Event::KeyReleased && viewFlag == 1) {
+                    if (event.key.code == sf::Keyboard::S) {
+                        viewFlag = 0;
+                    }
+                }      
             }
 
+
+            if (viewFlag == 1) {
+                sf::Vector2f viewMove = window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView) - windowView.getCenter();
+                viewMove.x = ship.getCoord().getX();
+                viewMove.y = ship.getCoord().getY(); 
+                windowView.setCenter(ship.getCoord().getX(), ship.getCoord().getY());
+            }   
+            //двигатели
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 shipV.setX(ship.getVel().getX() - 0.1);
                 shipV.setY(ship.getVel().getY());
