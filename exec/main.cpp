@@ -20,6 +20,22 @@ int main() {
         file >> ship;
         bool isViewMove = false;
         sf::Vector2f mousePos;
+
+        sf::CircleShape shape(planets[0].getRad());
+        sf::Texture texture;
+        texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/SunOr1.png");
+        shape.setTexture(&texture, false);
+        shape.setTextureRect(sf::IntRect(0, 0, 100, 100));    
+
+
+        sf::CircleShape shape1(planets[1].getRad());
+        sf::Texture texture1;
+        texture1.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/E1.png");
+        shape1.setTexture(&texture1, false);
+        shape1.setTextureRect(sf::IntRect(0, 0, 99, 99));    
+
+        float want_fps = 60;
+        sf::Clock loop_timer;
         //Главный цикл приложения который выпоняется пока открыто окно
         while (window.isOpen()) {
             sf::Event event;
@@ -80,19 +96,19 @@ int main() {
 //            sprite.setPosition(ship.getCoord().getX(), ship.getCoord().getY());
 //            window.draw(sprite);
 
-            sf::CircleShape shape(planets[0].getRad());
-            sf::Texture texture;
-            texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/SunOr1.png");
-            shape.setTexture(&texture, false);
-            shape.setTextureRect(sf::IntRect(0, 0, 100, 100));    
+//            sf::CircleShape shape(planets[0].getRad());
+//            sf::Texture texture;
+//            texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/SunOr1.png");
+//            shape.setTexture(&texture, false);
+//            shape.setTextureRect(sf::IntRect(0, 0, 100, 100));    
             shape.setPosition(planets[0].getCoord().getX() - planets[0].getRad(), planets[0].getCoord().getY() - planets[0].getRad());
             window.draw(shape);
 
-            sf::CircleShape shape1(planets[1].getRad());
-            sf::Texture texture1;
-            texture1.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/E1.png");
-            shape1.setTexture(&texture1, false);
-            shape1.setTextureRect(sf::IntRect(0, 0, 100, 100));    
+//            sf::CircleShape shape1(planets[1].getRad());
+//            sf::Texture texture1;
+//            texture1.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/E1.png");
+//            shape1.setTexture(&texture1, false);
+//            shape1.setTextureRect(sf::IntRect(0, 0, 99, 99));    
             shape1.setPosition(planets[1].getCoord().getX() - planets[1].getRad(), planets[1].getCoord().getY() - planets[1].getRad());
             window.draw(shape1);
             //end of it
