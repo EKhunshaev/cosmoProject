@@ -21,9 +21,9 @@ int main() {
         bool isViewMove = false;
         sf::Vector2f mousePos;
 
-        float want_fps = 60;
+        float wantFps = 60;
 
-        sf::Clock loop_timer;
+        sf::Clock loopTimer;
         //Главный цикл приложения который выпоняется пока открыто окно
         while (window.isOpen()) {
             sf::Event event;
@@ -98,12 +98,12 @@ int main() {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
             }
-            sf::Int32 frame_duration = loop_timer.getElapsedTime().asMilliseconds();
-            sf::Int32 time_to_sleep = int(1000.f/want_fps) - frame_duration;
-            if (time_to_sleep > 0) {
-                sf::sleep(sf::milliseconds(time_to_sleep));
+            sf::Int32 frameDuration = loopTimer.getElapsedTime().asMilliseconds();
+            sf::Int32 timeToSleep = int(1000.f/wantFps) - frameDuration;
+            if (timeToSleep > 0) {
+                sf::sleep(sf::milliseconds(timeToSleep));
             }
-            loop_timer.restart();
+            loopTimer.restart();
         }
     }
     return 0;
