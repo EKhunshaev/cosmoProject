@@ -118,6 +118,12 @@ int main() {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
             }
+            sf::Int32 frame_duration = loop_timer.getElapsedTime().asMilliseconds();
+            sf::Int32 time_to_sleep = int(1000.f/want_fps) - frame_duration;
+            if (time_to_sleep > 0) {
+                sf::sleep(sf::milliseconds(time_to_sleep));
+            }
+            loop_timer.restart();
         }
     }
     return 0;
