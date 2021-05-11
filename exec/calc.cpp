@@ -1,9 +1,9 @@
 #include "../headers/header.h"
 
-double high(Ship &S, Planet &P)
+double high(Planet &p1, Ship &s1)
 {
-    double D = mod(P.getCoord() - S.getCoord()) - P.getRad();
-    return (D);
+    double dist = mod(p1.getCoord() - s1.getCoord()) - p1.getRad();
+    return (dist);
 }
 
 Force force(Planet &p1, Ship &s1) {
@@ -18,6 +18,22 @@ void changeVelocity(Planet &p1, Ship &s1) {
     s1.setVel(s1.getVel() - f12 * (DT / s1.getWeight()));
 }
 
-void changeVelocity(Force &f, Ship &s) {
-    s.setVel(s.getVel() - f * (DT / s.getWeight()));
+void changeVelocity(Force &f1, Ship &s1) {
+    s1.setVel(s1.getVel() - f1 * (DT / s1.getWeight()));
 }
+
+Velocity relVelocity (Planet &p1, Ship &s1) {
+    Velocity rel = s1.getVel()-p1.getVel();
+    return rel;
+    }
+
+Point dockPoint (Planet &p1, Ship &s1) {
+    Point r12 = s1.getCoord() - p1.getCoord();
+    Point dock = p1.getCoord() + r12 * ((p1.getRad() + 2.5) / r12.mod());
+    return dock;
+}
+
+Velocity radVelocity (Planet &p1, Ship &s1) {
+    Velocity rad = (s1.getCoord() - p1.getCoord()) * (1 / mod(s1.getCoord() - p1.getCoord()));
+    return rad;
+    }

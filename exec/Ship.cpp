@@ -31,7 +31,7 @@ Velocity Ship::getVel() {
     return vel;
 }
 
-sf::CircleShape Ship::getShape() { 
+sf::CircleShape Ship::getShape() {
     return ship;
 }
 
@@ -46,7 +46,7 @@ void Ship::setCoord(const Point &coord) {
 
 void Ship::setVel(const Velocity &vel) {
     this->vel = vel;
-} 
+}
 
 std::istream &operator>>(std::istream &in, Ship &s) {
     in >> s.weight >> s.coord >> s.vel;

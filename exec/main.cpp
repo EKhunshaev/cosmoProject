@@ -12,6 +12,7 @@ int main() {
         std::vector<Planet> planets(pCount);
         Ship ship;
         Velocity shipV;
+        Point shipP;
 
         for (int i = 0; i < pCount; ++i) {
             //Читаю из файла
@@ -21,6 +22,7 @@ int main() {
         bool isViewMove = false;
         sf::Vector2f mousePos;
 
+<<<<<<< HEAD
         sf::CircleShape shape(planets[0].getRad());
         sf::Texture texture;
         texture.loadFromFile("/home/mikle/miki3/project/cosmoProject/texture/SunOr1.png");
@@ -36,6 +38,15 @@ int main() {
 
         float want_fps = 60;
         sf::Clock loop_timer;
+=======
+        float wantFps = 600;
+
+        sf::Clock loopTimer;
+
+        //Индикаторы посадки dockInd = 0 - свободный полёт, 1 - посадка
+        int dockInd = 0;
+        int dockPlanet = -1;
+>>>>>>> 9c203a6c06659f6a82a0f58cf78668972aeeb945
         //Главный цикл приложения который выпоняется пока открыто окно
         while (window.isOpen()) {
             sf::Event event;
@@ -59,7 +70,6 @@ int main() {
                     }
                 }
             }
-
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 shipV.setX(ship.getVel().getX() - 0.1);
                 shipV.setY(ship.getVel().getY());
@@ -80,7 +90,16 @@ int main() {
                 shipV.setY(ship.getVel().getY() + 0.1);
                 ship.setVel(shipV);
             }
-
+            if (dockInd == 1) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+          //          shipV = ship.getVel() + 1 * radVelocity(planets[dockPlanet], ship);
+          //          ship.setVel(shipV);
+                    shipP = ship.getCoord() + 3 * radVelocity(planets[dockPlanet], ship);
+                    ship.setCoord(shipP);
+                    dockInd = 0;
+                    dockPlanet = -1;
+                }
+            }
 
             if (isViewMove) {
                 windowView.move(mousePos - window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView));
@@ -120,12 +139,29 @@ int main() {
 
             window.setView(windowView);
             window.display();
+            //Обработка столкновений
 
+            for (int i = 0; i < pCount; ++i) {
+                if (high(planets[i], ship) <= 5 && relVelocity(planets[i], ship).mod() > 50) {
+                    window.close();
+                }
+                if (high(planets[i], ship) <= 5 && relVelocity(planets[i], ship).mod() <= 50) {
+                    dockInd = 1;
+                    dockPlanet = i;
+                    ship.setVel(planets[i].getVel());
+                    ship.setCoord(dockPoint(planets[i], ship));
+                }
+            }
             //Измеение положений тел
             for (int i = 0; i < pCount; ++i) {
                 for (int j = i + 1; j < pCount; ++j) {
                     changeVelocity(planets[i], planets[j]);
-                    changeVelocity(planets[i], ship);
+                    if (dockInd == 0) {
+                        changeVelocity(planets[i], ship);
+                    }
+                    else {
+                        ship.setVel(planets[dockPlanet].getVel());
+                    }
                 }
             }
 
@@ -134,12 +170,21 @@ int main() {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
             }
+<<<<<<< HEAD
             sf::Int32 frame_duration = loop_timer.getElapsedTime().asMilliseconds();
             sf::Int32 time_to_sleep = int(1000.f/want_fps) - frame_duration;
             if (time_to_sleep > 0) {
                 sf::sleep(sf::milliseconds(time_to_sleep));
             }
             loop_timer.restart();
+=======
+           sf::Int32 frameDuration = loopTimer.getElapsedTime().asMilliseconds();
+            sf::Int32 timeToSleep = int(1000.f/wantFps) - frameDuration;
+            if (timeToSleep > 0) {
+                sf::sleep(sf::milliseconds(timeToSleep));
+            }
+            loopTimer.restart();
+>>>>>>> 9c203a6c06659f6a82a0f58cf78668972aeeb945
         }
     }
     return 0;
