@@ -128,7 +128,8 @@ int main() {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
             }
-           sf::Int32 frameDuration = loopTimer.getElapsedTime().asMilliseconds();
+
+            sf::Int32 frameDuration = loopTimer.getElapsedTime().asMilliseconds();
             sf::Int32 timeToSleep = int(1000.f/wantFps) - frameDuration;
             if (timeToSleep > 0) {
                 sf::sleep(sf::milliseconds(timeToSleep));
