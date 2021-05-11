@@ -12,6 +12,7 @@ int main() {
         std::vector<Planet> planets(pCount);
         Ship ship;
         Velocity shipV;
+        Point shipP;
 
         for (int i = 0; i < pCount; ++i) {
             //Читаю из файла
@@ -20,6 +21,14 @@ int main() {
         file >> ship;
         bool isViewMove = false;
         sf::Vector2f mousePos;
+
+        float wantFps = 600;
+
+        sf::Clock loopTimer;
+
+        //Индикаторы посадки dockInd = 0 - свободный полёт, 1 - посадка
+        int dockInd = 0;
+        int dockPlanet = -1;
         //Главный цикл приложения который выпоняется пока открыто окно
         while (window.isOpen()) {
             sf::Event event;
@@ -43,7 +52,6 @@ int main() {
                     }
                 }
             }
-
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 shipV.setX(ship.getVel().getX() - 0.1);
                 shipV.setY(ship.getVel().getY());
@@ -64,7 +72,16 @@ int main() {
                 shipV.setY(ship.getVel().getY() + 0.1);
                 ship.setVel(shipV);
             }
-
+            if (dockInd == 1) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+          //          shipV = ship.getVel() + 1 * radVelocity(planets[dockPlanet], ship);
+          //          ship.setVel(shipV);
+                    shipP = ship.getCoord() + 3 * radVelocity(planets[dockPlanet], ship);
+                    ship.setCoord(shipP);
+                    dockInd = 0;
+                    dockPlanet = -1;
+                }
+            }
 
             if (isViewMove) {
                 windowView.move(mousePos - window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView));
@@ -80,12 +97,29 @@ int main() {
 
             window.setView(windowView);
             window.display();
+            //Обработка столкновений
 
+            for (int i = 0; i < pCount; ++i) {
+                if (high(planets[i], ship) <= 5 && relVelocity(planets[i], ship).mod() > 50) {
+                    window.close();
+                }
+                if (high(planets[i], ship) <= 5 && relVelocity(planets[i], ship).mod() <= 50) {
+                    dockInd = 1;
+                    dockPlanet = i;
+                    ship.setVel(planets[i].getVel());
+                    ship.setCoord(dockPoint(planets[i], ship));
+                }
+            }
             //Измеение положений тел
             for (int i = 0; i < pCount; ++i) {
                 for (int j = i + 1; j < pCount; ++j) {
                     changeVelocity(planets[i], planets[j]);
-                    changeVelocity(planets[i], ship);
+                    if (dockInd == 0) {
+                        changeVelocity(planets[i], ship);
+                    }
+                    else {
+                        ship.setVel(planets[dockPlanet].getVel());
+                    }
                 }
             }
 
@@ -94,6 +128,12 @@ int main() {
                 planets[i].setCoord({planets[i].getCoord().getX() + planets[i].getVel().getX() * DT,
                                      planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
             }
+           sf::Int32 frameDuration = loopTimer.getElapsedTime().asMilliseconds();
+            sf::Int32 timeToSleep = int(1000.f/wantFps) - frameDuration;
+            if (timeToSleep > 0) {
+                sf::sleep(sf::milliseconds(timeToSleep));
+            }
+            loopTimer.restart();
         }
     }
     return 0;
