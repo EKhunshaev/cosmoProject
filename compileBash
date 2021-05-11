@@ -1,1 +1,1 @@
-g++ exec/main.cpp exec/Vector2D.cpp exec/Planet.cpp exec/Ship.cpp exec/calc.cpp -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+g++ exec/main.cpp exec/Vector2D.cpp exec/Planet.cpp exec/Ship.cpp exec/calc.cpp exec/menu.cpp -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
