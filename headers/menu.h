@@ -5,7 +5,7 @@
 #define MENU_ABOUT 1
 typedef int menuType;
 
-void createText(sf::Text &text, const std::string &str, const sf::Font &font);
+void createText(sf::Text &text, const std::string &str, const sf::Font &font, const sf::Vector2f &position);
 
 bool mainMenu(sf::RenderWindow &window);
 

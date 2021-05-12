@@ -1,13 +1,13 @@
 #include "../headers/header.h"
 
-void createText(sf::Text &text, const std::string &str, const sf::Font &font, int x, int y) {
+void createText(sf::Text &text, const std::string &str, const sf::Font &font, const sf::Vector2f &position) {
     text.setFont(font);
     text.setString(str);
     text.setFillColor(sf::Color(0xe5, 0xb5, 0x25));
     text.setOutlineThickness(1);
     sf::FloatRect bounds = text.getLocalBounds();
     text.setOrigin(bounds.width/2, bounds.height/2);
-    text.setPosition(x, y);
+    text.setPosition(position.x, position.y);
 }
 
 bool mainMenu(sf::RenderWindow &window) {
@@ -15,13 +15,16 @@ bool mainMenu(sf::RenderWindow &window) {
     font.loadFromFile("textures/starjedi.ttf");
 
     sf::Text startGame;
-    createText(startGame, "start game", font, window.getSize().x / 2, window.getSize().y / 2 - 100);
+    createText(startGame, "start game", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2 - 100)));
     sf::Text about;
-    createText(about, "about", font, window.getSize().x / 2, window.getSize().y / 2);
+    createText(about, "about", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2)));
     sf::Text aboutContent;
-    createText(aboutContent, "The game is created by:\nMichael Vasilkovsky\nValentine Timoshkin\nElveg Khunshaev", font, window.getSize().x / 2, window.getSize().y / 2);
+    createText(aboutContent, "The game is created by:\n"
+                             "Michael vasiliev\n"
+                             "valentine Timoshkin\n"
+                             "Elveg Khunshaev", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2)));
     sf::Text exit;
-    createText(exit, "exit", font, window.getSize().x / 2, window.getSize().y / 2 + 100);
+    createText(exit, "exit", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2 + 100)));
 
     sf::Clock timer;
     float time = 0;
@@ -44,15 +47,15 @@ bool mainMenu(sf::RenderWindow &window) {
             exit.setFillColor(sf::Color(0xe5, 0xb5, 0x25));
             exit.setOutlineColor(sf::Color::Transparent);
 
-            if (sf::IntRect(startGame.getGlobalBounds()).contains(sf::Mouse::getPosition(window))) {
+            if (sf::IntRect(startGame.getGlobalBounds()).contains(sf::Vector2i(window.mapPixelToCoords(sf::Mouse::getPosition(window), window.getView())))) {
                 startGame.setFillColor(sf::Color::Transparent);
                 startGame.setOutlineColor(sf::Color(0xe5, 0xb5, 0x25));
                 mItemId = 1;
-            } else if (sf::IntRect(about.getGlobalBounds()).contains(sf::Mouse::getPosition(window))) {
+            } else if (sf::IntRect(about.getGlobalBounds()).contains(sf::Vector2i(window.mapPixelToCoords(sf::Mouse::getPosition(window), window.getView())))) {
                 about.setFillColor(sf::Color::Transparent);
                 about.setOutlineColor(sf::Color(0xe5, 0xb5, 0x25));
                 mItemId = 2;
-            } else if (sf::IntRect(exit.getGlobalBounds()).contains(sf::Mouse::getPosition(window))) {
+            } else if (sf::IntRect(exit.getGlobalBounds()).contains(sf::Vector2i(window.mapPixelToCoords(sf::Mouse::getPosition(window), window.getView())))) {
                 exit.setFillColor(sf::Color::Transparent);
                 exit.setOutlineColor(sf::Color(0xe5, 0xb5, 0x25));
                 mItemId = 3;
@@ -82,9 +85,9 @@ bool mainMenu(sf::RenderWindow &window) {
         } else if (menu == MENU_ABOUT) {
             exit.setFillColor(sf::Color(0xe5, 0xb5, 0x25));
             exit.setOutlineColor(sf::Color::Transparent);
-            exit.setPosition(window.getSize().x / 2, window.getSize().y - 100);
+            exit.setPosition(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y - 100)));
 
-            if (sf::IntRect(exit.getGlobalBounds()).contains(sf::Mouse::getPosition(window))) {
+            if (sf::IntRect(exit.getGlobalBounds()).contains(sf::Vector2i(window.mapPixelToCoords(sf::Mouse::getPosition(window), window.getView())))) {
                 exit.setOutlineColor(sf::Color(0xe5, 0xb5, 0x25));
                 exit.setFillColor(sf::Color::Transparent);
                 mItemId = 1;
@@ -97,7 +100,7 @@ bool mainMenu(sf::RenderWindow &window) {
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && mItemId == 1) {
                 menu = MENU_MAIN;
-                exit.setPosition(window.getSize().x / 2, window.getSize().y / 2 + 100);
+                exit.setPosition(window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2 + 100)));
             }
         }
         window.display();
