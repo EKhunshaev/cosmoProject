@@ -10,12 +10,12 @@ void createText(sf::Text &text, const std::string &str, const sf::Font &font, co
     text.setPosition(position.x, position.y);
 }
 
-bool mainMenu(sf::RenderWindow &window) {
+bool mainMenu(sf::RenderWindow &window, std::vector<Planet> &planets, Ship &ship, bool &newGame) {
     sf::Font font;
     font.loadFromFile("textures/starjedi.ttf");
 
     sf::Text startGame;
-    createText(startGame, "start game", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2 - 100)));
+    createText(startGame, (newGame ? "new game" : "continue"), font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2 - 100)));
     sf::Text about;
     createText(about, "about", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2)));
     sf::Text aboutContent;
@@ -25,6 +25,22 @@ bool mainMenu(sf::RenderWindow &window) {
                              "Elveg Khunshaev", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2)));
     sf::Text exit;
     createText(exit, "exit", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2 + 100)));
+
+    if (newGame) {
+        newGame = false;
+        std::ifstream file("systems/twoPlanetSystem.txt");
+        int pCount = 0;
+        file >> pCount;
+        planets.resize(pCount);
+        for (int i = 0; i < pCount; ++i) {
+            //Читаю из файла
+            file >> planets[i];
+        }
+        file >> ship;
+        file.close();
+    }
+
+
 
     sf::Clock timer;
     float time = 0;
