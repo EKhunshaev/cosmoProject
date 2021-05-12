@@ -19,6 +19,7 @@ int main() {
         }
         file >> ship;
         bool isViewMove = false;
+        bool viewFlag = true;
         sf::Vector2f mousePos;
 
         float wantFps = 60;
@@ -45,9 +46,12 @@ int main() {
                     if (event.mouseButton.button == sf::Mouse::Left) {
                         isViewMove = false;
                     }
-                }
+                } else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::S) {
+                    viewFlag = !viewFlag;
+                }      
             }
 
+            //двигатели
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 shipV.setX(ship.getVel().getX() - 0.1);
                 shipV.setY(ship.getVel().getY());
@@ -69,10 +73,14 @@ int main() {
                 ship.setVel(shipV);
             }
 
-
+            //Упраление камерой
             if (isViewMove) {
                 windowView.move(mousePos - window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView));
                 mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView);
+            }
+
+            if (viewFlag) {
+                windowView.setCenter(ship.getCoord().getX(), ship.getCoord().getY());
             }
             //Отрисовка окна
             window.clear(sf::Color(0x0e, 0x0e, 0x57));
