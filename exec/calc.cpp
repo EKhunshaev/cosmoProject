@@ -25,7 +25,7 @@ void changeVelocity(Force &f1, Ship &s1) {
 Velocity relVelocity (Planet &p1, Ship &s1) {
     Velocity rel = s1.getVel()-p1.getVel();
     return rel;
-    }
+}
 
 Point dockPoint (Planet &p1, Ship &s1) {
     Point r12 = s1.getCoord() - p1.getCoord();
@@ -36,4 +36,4 @@ Point dockPoint (Planet &p1, Ship &s1) {
 Velocity radVelocity (Planet &p1, Ship &s1) {
     Velocity rad = (s1.getCoord() - p1.getCoord()) * (1 / mod(s1.getCoord() - p1.getCoord()));
     return rad;
-    }
+}

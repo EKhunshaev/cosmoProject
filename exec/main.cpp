@@ -116,8 +116,7 @@ int main() {
                     changeVelocity(planets[i], planets[j]);
                     if (dockInd == 0) {
                         changeVelocity(planets[i], ship);
-                    }
-                    else {
+                    } else {
                         ship.setVel(planets[dockPlanet].getVel());
                     }
                 }
