@@ -26,6 +26,12 @@ bool mainMenu(sf::RenderWindow &window, std::vector<Planet> &planets, Ship &ship
     sf::Text exit;
     createText(exit, "exit", font, window.mapPixelToCoords(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2 + 100)));
 
+    if (zoom != 1) {
+        startGame.setScale(zoom, zoom);
+        exit.setScale(zoom, zoom);
+        about.setScale(zoom, zoom);
+        aboutContent.setScale(zoom, zoom);
+    }
     if (newGame) {
         newGame = false;
         std::ifstream file("systems/twoPlanetSystem.txt");
