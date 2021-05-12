@@ -46,6 +46,10 @@ int main() {
                         if (event.mouseButton.button == sf::Mouse::Left) {
                             isViewMove = false;
                         }
+                    } else if (event.type == sf::Event::KeyPressed) {
+                        if (event.key.code == sf::Keyboard::Escape) {
+                            isMenu = true;
+                        }
                     }
                 }
 
