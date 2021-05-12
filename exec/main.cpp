@@ -19,7 +19,12 @@ int main() {
         }
         file >> ship;
         bool isViewMove = false;
+        bool viewFlag = true;
         sf::Vector2f mousePos;
+
+        float wantFps = 60;
+
+        sf::Clock loopTimer;
         //Главный цикл приложения который выпоняется пока открыто окно
         bool isMenu = true;
         while (window.isOpen()) {
@@ -50,9 +55,12 @@ int main() {
                         if (event.key.code == sf::Keyboard::Escape) {
                             isMenu = true;
                         }
+                    } else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::S) {
+                        viewFlag = !viewFlag;
                     }
                 }
 
+                //Управление кораблем
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                     shipV.setX(ship.getVel().getX() - 0.1);
                     shipV.setY(ship.getVel().getY());
@@ -74,14 +82,17 @@ int main() {
                     ship.setVel(shipV);
                 }
 
-
+                //Упраление камерой
                 if (isViewMove) {
                     windowView.move(mousePos - window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView));
                     mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window), windowView);
                 }
+                if (viewFlag) {
+                    windowView.setCenter(ship.getCoord().getX(), ship.getCoord().getY());
+                }
+
                 //Отрисовка окна
                 window.clear(sf::Color(0x0e, 0x0e, 0x57));
-
                 for (int i = 0; i < pCount; ++i) {
                     window.draw(planets[i].getCircle());
                 }
@@ -105,6 +116,12 @@ int main() {
                                          planets[i].getCoord().getY() + planets[i].getVel().getY() * DT});
                 }
             }
+            sf::Int32 frameDuration = loopTimer.getElapsedTime().asMilliseconds();
+            sf::Int32 timeToSleep = int(1000.f/wantFps) - frameDuration;
+            if (timeToSleep > 0) {
+                sf::sleep(sf::milliseconds(timeToSleep));
+            }
+            loopTimer.restart();
         }
     }
     return 0;
