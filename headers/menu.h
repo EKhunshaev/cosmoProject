@@ -7,7 +7,7 @@ typedef int menuType;
 
 void createText(sf::Text &text, const std::string &str, const sf::Font &font, const sf::Vector2f &position);
 
-bool mainMenu(sf::RenderWindow &window);
+bool mainMenu(sf::RenderWindow &window, std::vector<Planet> &planets, Ship &ship, bool &newGame);
 
 
 
