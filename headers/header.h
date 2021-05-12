@@ -16,9 +16,10 @@
 #include "Planet.h"
 #include "Ship.h"
 #include "calc.h"
-
+#include "menu.h"
 //defines
 #define DT 0.001
+
 
 #endif //HEADER_H
 
