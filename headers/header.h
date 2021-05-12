@@ -19,7 +19,7 @@
 #include "menu.h"
 //defines
 #define DT 0.001
-
+extern double zoom;
 
 #endif //HEADER_H
 

@@ -1,9 +1,11 @@
 #include "../headers/header.h"
+double zoom = 1;
+
 
 int main() {
 
     //window - объект главного окна приложения типа RenderWindow
-    sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1600, 900), "Space adventure");
     sf::View windowView = window.getView();
 
     std::vector<Planet> planets;
@@ -39,6 +41,7 @@ int main() {
                     viewMove.x *= 0.05 * event.mouseWheelScroll.delta;
                     viewMove.y *= 0.05 * event.mouseWheelScroll.delta;
                     windowView.zoom(event.mouseWheelScroll.delta > 0 ? 0.95 : 1 / 0.95);
+                    zoom *= event.mouseWheelScroll.delta > 0 ? 0.95 : 1 / 0.95;
                     windowView.move(viewMove);
                 } else if (event.type == sf::Event::MouseButtonPressed) {
                     if (event.mouseButton.button == sf::Mouse::Left && !isViewMove) {
